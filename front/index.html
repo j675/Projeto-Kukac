@@ -1,0 +1,155 @@
+
+<html lang="en">
+<head>
+  <title>Renda Kukac</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<style type="text/css">
+    
+body{
+    margin: 0;
+    background-color: #5e5e5e;
+}
+h1{
+  color: red;
+  font-size: 50pt;
+}
+h2{
+  color: #f49d1c;
+}
+h3{
+  color: #f49d1c;
+
+}
+form{
+
+  align-items: center;
+}
+.form-control{
+   width: 100%;
+   height: 42px;
+}
+footer{
+    /*width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;*/
+    
+}
+
+</style>
+<body>
+
+<div class="container">
+    <center><h1>Calculo de Renda Per Capita</h1>
+    <h2>Nós somos uma empresa especializada em calcular a sua renda per capita.</h2>
+    <h3>KUKAC Consultoria.</h3><br><br><br><br>
+
+  
+  
+  <form>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+     <center> <input id="nome1" type="text" class="form-control" name="nome" placeholder="Digite Seu Nome"></center>
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+      <input id="cep" type="text" class="form-control" name="cep" placeholder="Digite o CEP da Sua Casa">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-piggy-bank"></i></span>
+      <input id="renda" type="text" class="form-control" name="renda" placeholder="Digite a Renda Mensal">
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></span>
+      <input id="ndepende" type="number" class="form-control" name="ndepende" placeholder="Número de Dependentes">
+    </div>
+    <br>
+    <div>
+      <button type="button" class="btn btn-success">Calcular Renda</button>
+    </div>
+    
+  </form>
+
+  <footer>
+    <div class="aa">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <center> <input id="nome" type="text" class="form-control" name="nome" placeholder="Seu Nome" disabled></center>
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+        <input id="rua" type="text" class="form-control" name="rua" placeholder="Sua Rua" disabled>
+      </div>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+      <input id="cidade" type="text" class="form-control" name="cidade" placeholder="Sua Cidade" disabled>
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+      <input id="uf" type="text" class="form-control" name="estado" placeholder="Seu Estado" disabled>
+    </div>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-piggy-bank"></i></span>
+      <input id="valorRenda" type="text" class="form-control" name="valorRenda" placeholder="Sua Renda Per Capita" disabled>
+    </div>
+    </div>
+  </footer>
+</center>
+</div>
+</header>
+</body>
+</html>
+<script type="text/javascript">
+  
+  let botao = document.querySelector("button");
+let form = document.querySelector(".aa");
+
+function aparecer(){
+    if (form.style.display == "flex") {
+        form.style.display = "none";
+        botao.innerHTML = "Abrir calculo";
+    }
+    else{
+        form.style.display = "flex";
+        botao.innerHTML = "Fechar calculo";
+    }
+    
+}
+botao.onclick = aparecer;
+
+ $(document).ready(function () {
+        $('#cep').change(function () {
+
+            var cep = $("#cep").val();
+
+            $.getJSON("https://viacep.com.br/ws/" + cep + "/json", function (dados) {
+                if (!("erro" in  dados)){
+                    $("#rua").val(dados.logradouro);
+                    $("#cidade").val(dados.localidade);
+                    $("#uf").val(dados.uf);
+                }
+            })
+
+
+        })
+
+    })
+
+
+
+    function calculaRenda(){
+        var nome = document.getElementById("nome1");
+        var renda = document.getElementById("renda");
+        var dependentes = document.getElementById("dependentes");
+        var rendaCapita = renda/dependentes;
+        return (rendaCapita);
+    }
+
+</script>
